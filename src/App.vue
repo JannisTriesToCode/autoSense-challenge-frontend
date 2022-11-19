@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-main>
-      <ModifyFuelstation />
+      <GetAllFullstationsVue />
     </v-main>
   </v-app>
 </template>

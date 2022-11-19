@@ -1,11 +1,13 @@
 <template>
   <v-app>
     <v-main>
-      <HelloWorld />
+      <CreateFuelstationVue />
     </v-main>
   </v-app>
 </template>
 
 <script setup>
-  import HelloWorld from '@/components/HelloWorld.vue'
+  //import HelloWorld from '@/components/HelloWorld.vue'
+  import CreateFuelstationVue from './components/CreateFuelstation.vue';
+
 </script>

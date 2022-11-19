@@ -155,15 +155,13 @@ export default {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data)
-          this.$refs.form.reset()
+          this.$refs.form.reset();
         })
         .catch((error) => {
           console.log(error);
         });
     },
   },
-  
 };
 </script>
 

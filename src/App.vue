@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-main>
-      <GetAllFullstationsVue />
+      <MapVue />
     </v-main>
   </v-app>
 </template>
@@ -11,4 +11,5 @@
 import CreateFuelstationVue from "./components/CreateFuelstation.vue";
 import ModifyFuelstation from "./components/ModifyFuelstation.vue";
 import GetAllFullstationsVue from "./components/GetAllFullstations.vue";
+import MapVue from "./components/Map.vue";
 </script>

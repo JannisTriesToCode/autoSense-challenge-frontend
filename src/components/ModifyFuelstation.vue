@@ -77,6 +77,9 @@
       <v-btn @click="loadFuelstation('MIGROL_100042')" variant="tonal"
         >Load fuelstation</v-btn
       >
+      <v-btn @click="deleteFuelstation('MIGROL_100042')" variant="tonal"
+        >Delete fuelstation</v-btn
+      >
     </v-form>
   </v-responsive>
 </template>
@@ -143,7 +146,24 @@ export default {
           console.log(error);
         });
     },
+    async deleteFuelstation(id) {
+      await fetch(process.env.BACKEND_IP + "/fuelstations/" + id, {
+        method: "DELETE",
+        headers: {
+          "API-Key": process.env.API_KEY,
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data)
+          this.$refs.form.reset()
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
   },
+  
 };
 </script>
 

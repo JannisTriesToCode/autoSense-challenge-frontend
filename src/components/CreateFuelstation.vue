@@ -1,187 +1,171 @@
 <template>
-    <v-responsive
-        class="mx-auto"
-        max-width="344"
-    >
-    <v-form
-        ref="form"
-        v-model="valid"
-        lazy-validation
-    >
+  <v-responsive class="mx-auto" max-width="344">
+    <v-form ref="form" v-model="valid" lazy-validation>
+      <v-text-field
+        v-model="fuelstation_id"
+        :rules="fuelstation_idRules"
+        label="ID"
+        variant="underlined"
+        required
+      ></v-text-field>
+
+      <v-text-field
+        v-model="name"
+        :rules="nameRules"
+        label="Name"
+        variant="underlined"
+        required
+      ></v-text-field>
+
+      <v-text-field
+        v-model="address"
+        :rules="addressRules"
+        label="Address"
+        variant="underlined"
+        required
+      ></v-text-field>
+
+      <v-text-field
+        v-model="city"
+        :rules="cityRules"
+        label="City"
+        variant="underlined"
+        required
+      ></v-text-field>
+
+      <v-text-field
+        v-model="latitude"
+        :rules="latitudeRules"
+        label="Latitude"
+        variant="underlined"
+        required
+      ></v-text-field>
+
+      <v-text-field
+        v-model="longitude"
+        :rules="longitudeRules"
+        label="Longitude"
+        variant="underlined"
+        required
+      ></v-text-field>
+
+      <div class="pump" v-for="(pump, counter) in pumps" v-bind:key="counter">
         <v-text-field
-            v-model="fuelstation_id"
-            :rules="fuelstation_idRules"
-            label="ID"
-            variant="underlined"
-            required
+          v-model="pump.id"
+          :rules="pump_idRules"
+          label="ID"
+          variant="underlined"
+          required
         ></v-text-field>
 
         <v-text-field
-            v-model="name"
-            :rules="nameRules"
-            label="Name"
-            variant="underlined"
-            required
+          v-model="pump.fuel_type"
+          :rules="fuel_typeRules"
+          label="Fuel type"
+          variant="underlined"
+          required
         ></v-text-field>
 
         <v-text-field
-            v-model="address"
-            :rules="addressRules"
-            label="Address"
-            variant="underlined"
-            required
+          v-model="pump.price"
+          :rules="priceRules"
+          label="Price"
+          variant="underlined"
+          required
         ></v-text-field>
 
-        <v-text-field
-            v-model="city"
-            :rules="cityRules"
-            label="City"
-            variant="underlined"
-            required
-        ></v-text-field>
+        <v-checkbox v-model="pump.available" label="Available"></v-checkbox>
 
-        <v-text-field
-            v-model="latitude"
-            :rules="latitudeRules"
-            label="Latitude"
-            variant="underlined"
-            required
-        ></v-text-field>
+        <v-btn class="mr-4" @click="addPump" variant="tonal"> New Pump </v-btn>
 
-        <v-text-field
-            v-model="longitude"
-            :rules="longitudeRules"
-            label="Longitude"
-            variant="underlined"
-            required
-        ></v-text-field>
-
-        <div class="pump" v-for="(pump, counter) in pumps" v-bind:key="counter">
-            
-            <v-text-field
-                v-model="pump.id"
-                :rules="pump_idRules"
-                label="ID"
-                variant="underlined"
-                required
-            ></v-text-field>
-
-            <v-text-field
-                v-model="pump.fuel_type"
-                :rules="fuel_typeRules"
-                label="Fuel type"
-                variant="underlined"
-                required
-            ></v-text-field>
-
-            <v-text-field
-                v-model="pump.price"
-                :rules="priceRules"
-                label="Price"
-                variant="underlined"
-                required
-            ></v-text-field>
-
-            <v-checkbox
-                v-model="pump.available"
-                label="Available"
-            ></v-checkbox>
-
-
-            <v-btn class="mr-4" @click="addPump" variant="tonal">
-                New Pump
-            </v-btn>
-
-            <v-btn class="mr-4" @click="deletePump(counter)" color="error" variant="tonal">
-                Delete Pump
-            </v-btn>
-        </div>
-
-        <v-btn class="mr-4" @click="submit" variant="tonal">
-            Submit
+        <v-btn
+          class="mr-4"
+          @click="deletePump(counter)"
+          color="error"
+          variant="tonal"
+        >
+          Delete Pump
         </v-btn>
+      </div>
 
-
+      <v-btn class="mr-4" @click="submit" variant="tonal"> Submit </v-btn>
     </v-form>
-    </v-responsive>
+  </v-responsive>
 </template>
 
 <script>
-  export default {
-    data: () => ({
-        valid: true,
-        fuelstation_id: null,
-        fuelstation_idRules: [
-            v => !!v || 'ID is required.',
-        ],
-        name: null,
-        nameRules: [
-            v => !!v || 'Name is required.',
-        ],
-        address: null,
-        addressRules: [
-            v => !!v || 'Address is required.',
-        ],
-        city: null,
-        cityRules: [
-            v => !!v || 'City is required.',
-        ],
-        latitude: null,
-        latitudeRules: [
-            v => !!v || 'Latitude is required.',
-            v => /\d+.\d+/.test(v) || 'Latitude must be a decimal number.'
-        ],
-        longitude: null,
-        longitudeRules: [
-            v => !!v || 'Longitude is required.',
-            v => /\d+.\d+/.test(v) || 'Longitude must be a decimal number.'
-        ],
-        pumps: [{ id: null, fuel_type: null, price: null, available: null }],
-        pump_idRules: [
-            v => !!v || 'ID is required.',
-        ],
-        fuel_typeRules: [
-            v => !!v || 'ID is required.',
-        ],
-        priceRules: [
-            v => !!v || 'ID is required.',
-            v => /\d+.\d+/.test(v) || 'Price must be a decimal number.'
-        ]
-    }),
-    methods: {
-      async submit () {
-        const { valid } = await this.$refs.form.validate()
-        
-        await fetch(process.env.BACKEND_IP + '/fuelstations', {
-            method: 'POST',
+export default {
+  data: () => ({
+    valid: true,
+    fuelstation_id: null,
+    fuelstation_idRules: [(v) => !!v || "ID is required."],
+    name: null,
+    nameRules: [(v) => !!v || "Name is required."],
+    address: null,
+    addressRules: [(v) => !!v || "Address is required."],
+    city: null,
+    cityRules: [(v) => !!v || "City is required."],
+    latitude: null,
+    latitudeRules: [
+      (v) => !!v || "Latitude is required.",
+      (v) => /\d+.\d+/.test(v) || "Latitude must be a decimal number.",
+    ],
+    longitude: null,
+    longitudeRules: [
+      (v) => !!v || "Longitude is required.",
+      (v) => /\d+.\d+/.test(v) || "Longitude must be a decimal number.",
+    ],
+    pumps: [{ id: null, fuel_type: null, price: null, available: null }],
+    pump_idRules: [(v) => !!v || "ID is required."],
+    fuel_typeRules: [(v) => !!v || "ID is required."],
+    priceRules: [
+      (v) => !!v || "ID is required.",
+      (v) => /\d+.\d+/.test(v) || "Price must be a decimal number.",
+    ],
+  }),
+  methods: {
+    async submit() {
+      const { valid } = await this.$refs.form.validate();
+
+      if (valid) {
+        await fetch(process.env.BACKEND_IP + "/fuelstations", {
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
-                'API-Key': process.env.API_KEY,
+            "Content-Type": "application/json",
+            "API-Key": process.env.API_KEY,
             },
             body: JSON.stringify({
-                id: this.fuelstation_id,
-                name: this.name,
-                address: this.address,
-                city: this.city,
-                latitude: this.latitude,
-                longitude: this.longitude,
-                pumps: this.pumps
-            })
+            id: this.fuelstation_id,
+            name: this.name,
+            address: this.address,
+            city: this.city,
+            latitude: this.latitude,
+            longitude: this.longitude,
+            pumps: this.pumps,
+            }),
         })
         .then((response) => response.json())
         .then((data) => console.log(data))
-        .catch(error => {console.log(error)});
-      },
-      addPump: function () {
-        this.pumps.push({ pump_id: null, fuel_type: null, price: null, available: null })
-      },
-      deletePump(counter) {
-        if (counter > 0) {
-            this.pumps.splice(counter, 1)
-        }        
+        .catch((error) => {
+            console.log(error);
+        });
+        };
+    },
+    addPump: function () {
+      this.pumps.push({
+        pump_id: null,
+        fuel_type: null,
+        price: null,
+        available: null,
+      });
+    },
+    deletePump(counter) {
+      if (counter > 0) {
+        this.pumps.splice(counter, 1);
       }
     },
-  }
+  },
+};
 </script>
 
 <style>

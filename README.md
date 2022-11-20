@@ -27,3 +27,7 @@ npm run build
 ### Customize configuration
 
 See [Configuration Reference](https://vitejs.dev/config/).
+
+## Documentation
+
+Can be found in [Backend](https://github.com/JannisTriesToCode/autoSense-challenge-backend).

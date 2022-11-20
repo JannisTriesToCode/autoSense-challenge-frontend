@@ -207,7 +207,7 @@ export default {
         pump_id: null,
         fuel_type: null,
         price: null,
-        available: null,
+        available: false,
       });
     },
     deletePump(counter) {

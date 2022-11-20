@@ -136,7 +136,7 @@ export default {
     pumps: [{ id: null, fuel_type: null, price: null, available: null }],
     priceRules: [
       (v) => !!v || "ID is required.",
-      (v) => /^\d+.\d+$/.test(v) || "Price must be a decimal number.",
+      (v) => /^\d+(.\d+)?$/.test(v) || "Price must be a decimal number.",
     ],
   }),
   methods: {
@@ -189,9 +189,18 @@ export default {
           this.name = data.name;
           this.address = data.address;
           this.city = data.city;
-          this.latitude = data.latitude;
-          this.longitude = data.longitude;
-          this.pumps = data.pumps;
+          this.latitude = data.latitude.$numberDecimal;
+          this.longitude = data.longitude.$numberDecimal;
+          const temp_pumps = [];
+          data.pumps.forEach((pump) => {
+            temp_pumps.push({
+              id: pump.id,
+              fuel_type: pump.fuel_type,
+              price: pump.price.$numberDecimal,
+              available: pump.available
+            })
+          });
+          this.pumps = temp_pumps;
           this.error = null;
         })
         .catch((error) => {

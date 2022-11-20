@@ -148,19 +148,19 @@ export default {
     latitude: null,
     latitudeRules: [
       (v) => !!v || "Latitude is required.",
-      (v) => /^\d+.\d+$/.test(v) || "Latitude must be a decimal number.",
+      (v) => /^\d+(.\d+)?$/.test(v) || "Latitude must be a decimal number.",
     ],
     longitude: null,
     longitudeRules: [
       (v) => !!v || "Longitude is required.",
-      (v) => /^\d+.\d+$/.test(v) || "Longitude must be a decimal number.",
+      (v) => /^\d+(.\d+)?$/.test(v) || "Longitude must be a decimal number.",
     ],
     pumps: [{ id: null, fuel_type: null, price: null, available: false }],
     pump_idRules: [(v) => !!v || "ID is required."],
     fuel_typeRules: [(v) => !!v || "ID is required."],
     priceRules: [
       (v) => !!v || "ID is required.",
-      (v) => /^\d+.\d+$/.test(v) || "Price must be a decimal number.",
+      (v) => /^\d+(.\d+)?$/.test(v) || "Price must be a decimal number.",
     ],
   }),
   methods: {

@@ -38,7 +38,7 @@ export default {
           // Add marker for each fuelstation
           data.data.forEach((fuelstation) => {
             const marker = new maplibregl.Marker()
-              .setLngLat([fuelstation.longitude, fuelstation.latitude])
+              .setLngLat([fuelstation.longitude.$numberDecimal, fuelstation.latitude.$numberDecimal])
               .setPopup(
                 new maplibregl.Popup().setHTML(
                   '<div id="popup-content-' + fuelstation.id + '"></div>'

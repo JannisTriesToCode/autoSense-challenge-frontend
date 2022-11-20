@@ -186,6 +186,9 @@ export default {
         })
           .then((response) => response.json())
           .then((responseJson) => {
+            // Temp hack
+            // Check if response has a message property. This indicates that the fuelstation id already exists.
+            // TODO: Use response.status for this
             if (Object.prototype.hasOwnProperty.call(responseJson, "message")) {
               throw new Error(responseJson.message);
             } else {
@@ -218,7 +221,7 @@ export default {
 
 <style>
 .pump {
-  border: 1px solid;
+  border: 1px solid darkgray;
   padding: 5px;
   margin-bottom: 10px;
 }

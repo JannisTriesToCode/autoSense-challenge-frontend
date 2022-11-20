@@ -101,7 +101,9 @@
           </v-row>
         </div>
 
-        <v-btn class="mr-4" @click="submit" variant="tonal"> Update </v-btn>
+        <v-btn class="mr-4" @click="update(this.id)" variant="tonal">
+          Update
+        </v-btn>
 
         <v-btn class="mr-4" @click="loadFuelstation(this.id)" variant="tonal"
           >Load fuelstation</v-btn
@@ -138,11 +140,12 @@ export default {
     ],
   }),
   methods: {
-    async submit() {
+    async update(id) {
+      // This function updates a fuelstation to the backend
       const { valid } = await this.$refs.form.validate();
 
       if (valid) {
-        await fetch(process.env.BACKEND_IP + "/fuelstations/" + this.id, {
+        await fetch(process.env.BACKEND_IP + "/fuelstations/" + id, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
@@ -167,6 +170,7 @@ export default {
       }
     },
     async loadFuelstation(id) {
+      // This function gets the details of a fuelstation a loads it into the corresponding form
       await fetch(process.env.BACKEND_IP + "/fuelstations/" + id, {
         method: "GET",
         headers: {
@@ -196,6 +200,7 @@ export default {
         });
     },
     async deleteFuelstation(id) {
+      // This function deletes a fuelstation
       await fetch(process.env.BACKEND_IP + "/fuelstations/" + id, {
         method: "DELETE",
         headers: {
@@ -220,6 +225,7 @@ export default {
     },
   },
   mounted() {
+    // Load the details of a fuelstation as soon as component is mounted
     this.loadFuelstation(this.id);
   },
 };
@@ -227,7 +233,7 @@ export default {
 
 <style>
 .pump {
-  border: 1px solid;
+  border: 1px solid darkgray;
   padding: 5px;
   margin-bottom: 10px;
 }

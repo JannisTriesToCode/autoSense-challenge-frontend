@@ -6,6 +6,12 @@
 npm install
 ```
 
+### Add API Keys
+
+Go to `vite.config.js` and add required API keys to `process.env`. 
+
+A map tiler api key can be created [here](https://www.maptiler.com/).
+
 ### Compiles and hot-reloads for development
 
 ```

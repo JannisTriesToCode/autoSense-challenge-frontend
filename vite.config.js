@@ -19,6 +19,7 @@ export default defineConfig({
     "process.env": {
       API_KEY: "198DA5DF735FACD8226C884CB4CC9",
       BACKEND_IP: "http://localhost:4500",
+      MAP_TILER_API_KEY: "ADD_MAP_TILER_API_KEY_HERE",
     },
   },
   resolve: {

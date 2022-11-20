@@ -81,7 +81,7 @@ export default {
     this.map = new maplibregl.Map({
       container: "map",
       style:
-        "https://api.maptiler.com/maps/streets/style.json?key=7rzbhFvyZxLBRQi4Hqw3",
+        "https://api.maptiler.com/maps/streets/style.json?key=" + process.env.MAP_TILER_API_KEY,
       center: [8.52981, 47.3943939],
       zoom: 10,
     });
